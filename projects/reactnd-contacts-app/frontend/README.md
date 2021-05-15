@@ -8,7 +8,3 @@ You'll build the front end of the Contacts app throughout the course.
 
 1. Install the dependencies - `npm install`
 2. start the frontend - `yarn start`
-
-
-
-
