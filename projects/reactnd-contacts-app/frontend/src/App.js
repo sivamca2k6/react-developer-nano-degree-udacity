@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ListContacts from "./ListContacts";
 
 class App extends Component {
-  render() {
 
-    const contacts = [
+  state = {
+    contacts : [
       {
         "id": "karen",
         "name": "Karen Isgrigg",
@@ -23,11 +23,24 @@ class App extends Component {
         "handle": "tylermcginnis",
         "avatarURL": "http://localhost:5001/tyler.jpg"
       }
-     ];
-     
+     ]
+  }
+
+  //add the removeContact delegate func for the call back from child component..
+  deleteContact = (contactToDelete) => {
+    
+    //currentState => holds current state
+    this.setState ( (currentState) => ({ 
+      // this will merge the state
+      contacts : currentState.contacts.filter ( contact => contact.id !== contactToDelete.id),
+    }));
+
+  }
+
+  render() {
     return (
       <div>
-        <ListContacts contacts={contacts} />
+        <ListContacts contacts={this.state.contacts} OnDeleteContactTriggered = {this.deleteContact} />
       </div>
     );
   }
