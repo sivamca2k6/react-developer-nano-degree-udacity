@@ -20,28 +20,45 @@ class ListContacts extends Component {
     }
 
     render(){
-        return (
 
-        <div className="list-contacts">
-            <div className = "list-contacts-top">
-                <input type="text"  className="search-contact" placeholder="Search Contact" 
-                    value = {this.state.searchtext} onChange = {(event) => {this.updateSearchQuery(event.target.value)}} // this is one way binding;value will be update thru setState only
-                  />
-            </div>
-            {JSON.stringify(this.state)}
-            <ol className="contact-list" >
-                { this.props.contacts.map( x=> (  
-                    <li key={ x.id} className="contact-list-item">  
-                        <div className="contact-avator" style= {{ backgroundImage: `url(${x.avatarURL})`  }} />
-                        <div className="contact-details">
-                            <p> {x.name}</p>
-                            <p> {x.handle}</p>
-                        </div>
-                        <button className="contact-remove" onClick = { () => this.props.OnDeleteContactTriggered(x)}> Remove </button>   
-                    </li>
-                ))};
-            </ol> 
-        </div>    
+        const { searchtext } = this.state
+        const { contacts, OnDeleteContact } = this.props
+    
+        const filteredContacts = searchtext === ''
+          ? contacts
+          : contacts.filter((c) => (
+              c.name.toLowerCase().includes(searchtext.toLowerCase())
+            ))
+         console.log (filteredContacts.length)  
+
+        return (
+            <div className="list-contacts">
+                <div className = "list-contacts-top">
+                    <input type="text"  className="search-contact" placeholder="Search Contact" 
+                        value = {this.state.searchtext} onChange = {(event) => {this.updateSearchQuery(event.target.value)}} // this is one way binding;value will be update thru setState only
+                    />
+                </div>
+
+                <div className='showing-contacts'>
+                    <span>
+                        {JSON.stringify(this.state)} - showing {filteredContacts.length} of {contacts.length} 
+                    </span>
+                    <button onClick={ () => this.updateSearchQuery('') }>Reset Search</button>
+                </div>
+
+                <ol className="contact-list" >
+                    { filteredContacts.map( x=> (  
+                        <li key={ x.id} className="contact-list-item">  
+                            <div className="contact-avator" style= {{ backgroundImage: `url(${x.avatarURL})`  }} />
+                            <div className="contact-details">
+                                <p> {x.name}</p>
+                                <p> {x.handle}</p>
+                            </div>
+                            <button className="contact-remove" onClick = { () => OnDeleteContact(x)}> Remove </button>   
+                        </li>
+                    ))};
+                </ol> 
+            </div>    
         )
     }
 }
