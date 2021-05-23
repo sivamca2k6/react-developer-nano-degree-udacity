@@ -47,6 +47,7 @@ class ListContacts extends Component {
                 </div>
 
                 <ol className="contact-list" >
+
                     { filteredContacts.map( x=> (  
                         <li key={ x.id} className="contact-list-item">  
                             <div className="contact-avator" style= {{ backgroundImage: `url(${x.avatarURL})`  }} />
