@@ -8,6 +8,9 @@ class AddContact extends Component {
     HandleFormSubmit = (event) =>{
         event.preventDefault();
 
+        const values = serializeForm(event.target, { hash: true })
+        //console.debug(values)
+
         if (this.props.onCreateContact) {
             this.props.onCreateContact(values); //call to parent APP.js
           }
