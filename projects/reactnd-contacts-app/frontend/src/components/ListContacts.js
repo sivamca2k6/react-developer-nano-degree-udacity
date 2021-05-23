@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 import React ,{Component} from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 class ListContacts extends Component {
     
@@ -39,8 +40,8 @@ class ListContacts extends Component {
                     <input type="text"  className="search-contact" placeholder="Search Contact" 
                         value = {this.state.searchtext} onChange = {(event) => {this.updateSearchQuery(event.target.value)}} // this is one way binding;value will be update thru setState only
                     />
-                    <a href='#create' onClick={this.props.onNavigate} className='add-contact'>
-                          Add Contact</a>
+                    <Link to='create' className='add-contact'>
+                          Add Contact</Link>
                 </div>
 
                 <div className='showing-contacts'>
