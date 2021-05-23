@@ -1,12 +1,14 @@
 import React, { Component } from 'react'; 
-import ListContacts from "./ListContacts";
+import ListContacts from "./components/ListContacts";
+import AddContact from "./components/AddContact";
 import * as ContactsAPI from './utils/ContactsAPI'
 
 
 class App extends Component {
 
   state = {
-    contacts : []
+    contacts : [],
+    screen : 'list'
   }
 
   //add the removeContact delegate func for the call back from child component..
@@ -26,14 +28,21 @@ class App extends Component {
       this.setState ({
         contacts : contacts
      })
-     console.debug(contacts)
+     //console.debug(contacts)
     });
   }
 
   render() {
     return (
       <div>
-        <ListContacts contacts={this.state.contacts} OnDeleteContact = {this.deleteContact} />
+       {this.state.screen === 'list' && (
+            <ListContacts contacts={this.state.contacts} OnDeleteContact = {this.deleteContact} />
+       )} 
+        
+       {this.state.screen === 'add' && (
+          <AddContact />
+       )}
+        
       </div>
     );
   }

@@ -32,7 +32,9 @@ class ListContacts extends Component {
          console.log (filteredContacts.length)  
 
         return (
+
             <div className="list-contacts">
+                 <h1> Contact Lists</h1>
                 <div className = "list-contacts-top">
                     <input type="text"  className="search-contact" placeholder="Search Contact" 
                         value = {this.state.searchtext} onChange = {(event) => {this.updateSearchQuery(event.target.value)}} // this is one way binding;value will be update thru setState only
