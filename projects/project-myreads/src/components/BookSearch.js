@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import { Link } from 'react-router-dom'
 import BooksGrid from './BooksGrid'
 import * as BooksAPI from '../utils/BooksAPI'
+//import BookShelfList from './BookShelfList'
 
 /* to do - 
 1.get api data props
@@ -17,26 +18,22 @@ class BookSearch extends Component{
         super(props)
         this.state = {
             query : '',
-            SearchBookDatas : []
         }
         this.OnSearchQueryChanged = this.OnSearchQueryChanged.bind(this);
     }
     
-      componentDidMount(){
-          this.setState({SearchBookDatas : this.props.BookDatas})
-      }
-
       OnSearchQueryChanged = (event) => {
-        let searchQuery = event.target.value;
-         BooksAPI.search(searchQuery).then(filteredBooks => { // this api serach takes time .. can we filter by orignal
-            //console.debug('BookSearch-OnSearchQueryChanged - ' + searchQuery)
-            //console.debug(filteredBooks)
-            this.setState({SearchBookDatas : filteredBooks,query : searchQuery })
+        const searchQuery = event.target.value;
+
+        BooksAPI.search(searchQuery).then(filteredBooks => { // this api search takes time .. ?? debug
+            this.setState({query : searchQuery })
+            this.props.OnUpdateBookDatas(filteredBooks);
           });
+
       }
 
     render(){  
-
+        //console.debug('bookserach render')
         return (
         <div className="search-books">
             <div className="search-books-bar">
@@ -46,10 +43,10 @@ class BookSearch extends Component{
                 </div>
             </div>
             <div>
-                <h2 className="bookshelf-title"> Matched Books - {this.state.SearchBookDatas ? this.state.SearchBookDatas.length : 0}</h2>
+                <h2 className="bookshelf-title"> Matched Books ({this.props.BookDatas ? this.props.BookDatas.length : 0})</h2>
             </div>
             <div className="search-books-results">
-                   <BooksGrid BookDatas={this.state.SearchBookDatas}  /> 
+                   <BooksGrid BookDatas={this.props.BookDatas}  OnChangeShelf ={this.props.OnChangeShelf}  /> 
             </div>
         </div>
 
