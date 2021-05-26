@@ -18,18 +18,20 @@ class BookShelfList extends Component{
         const  WantToReadBooks = this.props.BookDatas.filter( book => book.shelf === 'wantToRead');
         const  ReadBooks = this.props.BookDatas.filter( book => book.shelf === 'read');
         
+        console.debug(` CurrentlyReadingBooks:${CurrentlyReadingBooks.length} WantToReadBooks:${WantToReadBooks.length} ReadBooks:${ReadBooks.length}`);
+        
         return {CurrentlyReadingBooks,WantToReadBooks,ReadBooks}
     }
         
     render(){ 
-        console.debug("BookShelfList - render " + this.props.BookDatas.length);
+       
         const {CurrentlyReadingBooks,WantToReadBooks,ReadBooks} = this.filterBookDatas();
 
         return (
         <div className="list-books-content">
-            <BookShelf BookDatas={CurrentlyReadingBooks} Title ={'Currently Reading'} />
-            <BookShelf BookDatas={WantToReadBooks} Title ={'Want To Read'} />
-            <BookShelf BookDatas={ReadBooks} Title ={'Read'} />
+            <BookShelf BookDatas={CurrentlyReadingBooks} Title ={'Currently Reading'} OnChangeShelf ={this.props.OnChangeShelf} />
+            <BookShelf BookDatas={WantToReadBooks} Title ={'Want To Read'} OnChangeShelf ={this.props.OnChangeShelf} />
+            <BookShelf BookDatas={ReadBooks} Title ={'Read'} OnChangeShelf ={this.props.OnChangeShelf} />
         </div>
     )}
 }

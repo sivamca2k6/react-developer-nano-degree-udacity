@@ -29,8 +29,8 @@ class BookSearch extends Component{
       OnSearchQueryChanged = (event) => {
         let searchQuery = event.target.value;
          BooksAPI.search(searchQuery).then(filteredBooks => { // this api serach takes time .. can we filter by orignal
-            console.debug('BookSearch-OnSearchQueryChanged - ' + searchQuery)
-            console.debug(filteredBooks)
+            //console.debug('BookSearch-OnSearchQueryChanged - ' + searchQuery)
+            //console.debug(filteredBooks)
             this.setState({SearchBookDatas : filteredBooks,query : searchQuery })
           });
       }

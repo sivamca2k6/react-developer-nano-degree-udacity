@@ -20,9 +20,23 @@ class BooksApp extends React.Component {
 
   componentDidMount(){
     BooksAPI.getAll().then(books => {
-      //console.debug(books)
       this.setState({BookDatas : books})
     })
+  }
+
+  changeBookShelf = (bookToUpdate,shelf) => {
+    //console.log(`${bookToUpdate.title} ${bookToUpdate.shelf} Shelf Change to ${shelf}  `)
+
+    const books = [...this.state.BookDatas] //shallow copy
+    const index = books.findIndex(x=>x.id === bookToUpdate.id);
+    books[index].shelf = shelf;
+
+    this.setState ( (currentState) => ({ 
+      BookDatas : books,
+    }));
+
+    BooksAPI.update( books[index],shelf);
+
   }
 
   render() {
@@ -35,7 +49,7 @@ class BooksApp extends React.Component {
               
               <Switch>
                 <Route exact path='/'> 
-                  <BookShelfList BookDatas={this.state.BookDatas}  /> 
+                  <BookShelfList BookDatas={this.state.BookDatas} OnChangeShelf ={this.changeBookShelf}  /> 
                 </Route>
                 <Route exact path='/Search'  >
                     <BookSearch BookDatas={this.state.BookDatas}  /> 

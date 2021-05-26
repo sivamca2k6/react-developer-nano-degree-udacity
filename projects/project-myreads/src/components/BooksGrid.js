@@ -10,7 +10,7 @@ export default function BooksGrid(props) {
         {
             books.map( book => 
             <li key={book.id}>
-                 <Book Book ={book}  />
+                 <Book Book ={book} OnChangeShelf ={props.OnChangeShelf}  />
             </li>
             )
         }

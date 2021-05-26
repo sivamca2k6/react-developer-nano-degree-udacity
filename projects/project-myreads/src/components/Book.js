@@ -1,12 +1,30 @@
 import React from 'react';
 
-export default function Book(props){
-    return (
+class Book extends React.Component{
+
+
+    state = {
+        currentShelf : 'none'
+    }
+
+    OnShelfChange = (event) => {
+            console.log(`${this.props.Book.title} ${this.props.Book.shelf} Shelf Change to ${event.target.value}  `)
+            
+            this.setState({ currentShelf : event.target.value });
+            this.props.OnChangeShelf(this.props.Book,event.target.value);
+    }
+
+    componentDidMount(){
+            this.setState({ currentShelf : this.props.Book.shelf });
+    }
+
+    render() { return (
+
     <div className="book">
         <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${props.Book.imageLinks.thumbnail}")` }}></div>
+            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${this.props.Book.imageLinks.thumbnail}")` }}></div>
             <div className="book-shelf-changer">
-                <select>
+                <select onChange={this.OnShelfChange} value={this.state.currentShelf}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
@@ -15,9 +33,11 @@ export default function Book(props){
                 </select>
             </div>
         </div>
-        <div className="book-title">{props.Book.title}</div>
-        <div className="book-authors">{props.Book.authors}</div>
+        <div className="book-title">{this.props.Book.title}</div>
+        <div className="book-authors">{this.props.Book.authors}</div>
     </div>
-    )
-
+    
+    )}
 }
+
+export default Book

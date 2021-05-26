@@ -8,7 +8,7 @@ export default function BooksShelf(props) {
     <div className="bookshelf">
         <h2 className="bookshelf-title">{props.Title}</h2>
         <div className="bookshelf-books">
-           <BooksGrid BookDatas={props.BookDatas} />
+           <BooksGrid BookDatas={props.BookDatas} OnChangeShelf ={props.OnChangeShelf} />
         </div>
     </div>
 
