@@ -1,10 +1,16 @@
-import React,{Component} from 'react'
+import React from 'react'
 import BooksGrid from './BooksGrid'
 
 
-class BookShelf extends Component{
+/* to do - 
+1.get api data props
+2.bind to grid
+3.function compo
 
-    render(){ return (
+*/
+export default function BooksShelf(props) {
+
+    return (
 
     <div className="bookshelf">
         <h2 className="bookshelf-title">Currently Reading</h2>
@@ -13,8 +19,7 @@ class BookShelf extends Component{
         </div>
     </div>
 
-    )}
+    )
 }
 
-export default BookShelf
 

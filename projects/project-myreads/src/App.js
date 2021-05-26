@@ -1,14 +1,28 @@
 import React from 'react'
 import { Route,Link, Switch } from 'react-router-dom'
-// import * as BooksAPI from './utils/BooksAPI'
+import * as BooksAPI from './utils/BooksAPI'
 import './App.css'
 import BookShelfList from './components/BookShelfList'
 import BookSearch from './components/BookSearch'
 
 
+
+/* to do - 
+1.get api data 
+2.store data in state
+4.pass to compo
+*/
+
 class BooksApp extends React.Component {
   state = {
-    showSearchPage: false
+    BookDatas : []
+  }
+
+  componentDidMount(){
+    BooksAPI.getAll().then(books => {
+      console.debug(books)
+      this.setState({BookDatas : books})
+    })
   }
 
   render() {
@@ -21,7 +35,7 @@ class BooksApp extends React.Component {
               
               <Switch>
                 <Route exact path='/'> 
-                  <BookShelfList /> 
+                  <BookShelfList BookDatas={this.state.BookDatas}  /> 
                 </Route>
                 <Route exact path='/Search' component={BookSearch} />
               </Switch>

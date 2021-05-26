@@ -1,22 +1,27 @@
-import React,{Component} from 'react'
+import React from 'react'
 import Book from './Book'
 
-class BooksGrid extends Component{
-
-    render(){ return (
-
+/* to do - 
+1.get api data props
+2.function compo
+3.map data
+*/
+export default function BooksGrid(props) {
+    
+    const books = props.BookDatas || []
+    return (
+    books.length > 0 ? 
     <ol className="books-grid">
-        <li>
-           <Book />
-        </li>
-        <li>
-            <Book />
-        </li>
-    </ol>
-
-    )}
+        {
+            books.map( book => 
+            <li key={book.id}>
+                 <Book Book ={book}  />
+            </li>
+            )
+        }
+    </ol> : <p> no books avialable.</p> 
+     )
+    
 }
-
-export default BooksGrid
 
 
