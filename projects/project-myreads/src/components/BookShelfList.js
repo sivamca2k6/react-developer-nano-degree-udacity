@@ -2,29 +2,34 @@ import React,{Component} from 'react'
 import BookShelf from './BookShelf'
 
 
-/* to do - 
-1.data as props
-2.filter corresponding category
-3.pass to respective compo
-*/
 class BookShelfList extends Component{
 
-    state = {
-        SearchBookDatas : []
-      }
-    
-      componentDidMount(){
-        BooksAPI.getAll().then(books => {
-          console.debug(books)
-          this.setState({SearchBookDatas : books})
-        })
-      }
+    constructor(props){
+        super(props)
+        this.state = {
+            BookDatas: [],
+          }
+          //console.debug("BookShelfList - constructor " + this.props.BookDatas.length);
+    }
 
-    render(){ return (
+    filterBookDatas= () =>{
+        
+        const  CurrentlyReadingBooks = this.props.BookDatas.filter( book => book.shelf === 'currentlyReading');
+        const  WantToReadBooks = this.props.BookDatas.filter( book => book.shelf === 'wantToRead');
+        const  ReadBooks = this.props.BookDatas.filter( book => book.shelf === 'read');
+        
+        return {CurrentlyReadingBooks,WantToReadBooks,ReadBooks}
+    }
+        
+    render(){ 
+        console.debug("BookShelfList - render " + this.props.BookDatas.length);
+        const {CurrentlyReadingBooks,WantToReadBooks,ReadBooks} = this.filterBookDatas();
+
+        return (
         <div className="list-books-content">
-            <BookShelf />
-            <BookShelf />
-            <BookShelf />
+            <BookShelf BookDatas={CurrentlyReadingBooks} Title ={'Currently Reading'} />
+            <BookShelf BookDatas={WantToReadBooks} Title ={'Want To Read'} />
+            <BookShelf BookDatas={ReadBooks} Title ={'Read'} />
         </div>
     )}
 }

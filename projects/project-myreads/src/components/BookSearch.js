@@ -23,10 +23,7 @@ class BookSearch extends Component{
     }
     
       componentDidMount(){
-        BooksAPI.getAll().then(books => { //render all the datas while load first time
-          //console.debug('BookSearch-componentDidMount - ' + books)
-          this.setState({SearchBookDatas : books})
-        })
+          this.setState({SearchBookDatas : this.props.BookDatas})
       }
 
       OnSearchQueryChanged = (event) => {
@@ -40,7 +37,7 @@ class BookSearch extends Component{
 
     render(){  
 
-         return (
+        return (
         <div className="search-books">
             <div className="search-books-bar">
                 <Link to='/' className="close-search" />

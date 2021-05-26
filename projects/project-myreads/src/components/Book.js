@@ -1,10 +1,5 @@
 import React from 'react';
 
-/* to do - 
-1.get book data props
-2.function compo
-3.book data bind
-*/
 export default function Book(props){
     return (
     <div className="book">
