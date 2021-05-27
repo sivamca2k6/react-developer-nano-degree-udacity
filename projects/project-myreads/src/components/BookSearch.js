@@ -4,13 +4,6 @@ import BooksGrid from './BooksGrid'
 import * as BooksAPI from '../utils/BooksAPI'
 //import BookShelfList from './BookShelfList'
 
-/* to do - 
-1.get api data props
-2.search
-3.store search data in state
-4.bind to grid
-
-*/
 
 class BookSearch extends Component{
 
@@ -18,8 +11,14 @@ class BookSearch extends Component{
         super(props)
         this.state = {
             query : '',
+            BookDatas : []
         }
         this.OnSearchQueryChanged = this.OnSearchQueryChanged.bind(this);
+    }
+    
+    componentDidMount (){
+        console.log(' BookSearch componentDidMount');
+        this.setState( { BookDatas : this.props.BookDatas })
     }
     
       OnSearchQueryChanged = (event) => {
@@ -27,13 +26,22 @@ class BookSearch extends Component{
 
         BooksAPI.search(searchQuery).then(filteredBooks => { // this api search takes time .. ?? debug
             this.setState({query : searchQuery })
+
+            if(typeof this.state.BookDatas !== undefined && this.state.BookDatas.length > 0 && 
+                typeof filteredBooks !== undefined && filteredBooks.length > 0){
+
+                this.state.BookDatas.forEach(book => {
+                    filteredBooks.filter( bookf => bookf.id === book.id).map ( bookm => bookm.shelf = book.shelf  );    
+                });
+            }
+
             this.props.OnUpdateBookDatas(filteredBooks);
           });
 
       }
 
     render(){  
-        //console.debug('bookserach render')
+        console.debug('bookserach render')
         return (
         <div className="search-books">
             <div className="search-books-bar">

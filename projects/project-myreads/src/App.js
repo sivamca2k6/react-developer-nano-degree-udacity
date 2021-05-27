@@ -6,13 +6,6 @@ import BookShelfList from './components/BookShelfList'
 import BookSearch from './components/BookSearch'
 
 
-
-/* to do - 
-1.get api data 
-2.store data in state
-4.pass to compo
-*/
-
 class BooksApp extends React.Component {
   state = {
     BookDatas : []
@@ -24,12 +17,14 @@ class BooksApp extends React.Component {
   }
 
   changeBookShelf = (bookToUpdate,shelf) => {
-    console.log(`${bookToUpdate.title} ${bookToUpdate.shelf} Shelf Change to ${shelf}  `)
 
     const books = [...this.state.BookDatas] //shallow copy
     const index = books.findIndex(x=>x.id === bookToUpdate.id);
 
     if(books[index]){
+
+      console.log(`${bookToUpdate.title} ${bookToUpdate.shelf} Shelf Change to ${shelf}  `)
+      
       books[index].shelf = shelf;
 
       this.setState ( (currentState) => ({ 
@@ -37,6 +32,8 @@ class BooksApp extends React.Component {
       }));
 
       BooksAPI.update( books[index],shelf);
+
+     
     }
 
   }

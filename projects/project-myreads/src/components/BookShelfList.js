@@ -13,7 +13,7 @@ class BookShelfList extends Component{
     }
 
     componentDidMount(){
-        //console.debug(this.props.OnUpdateBookDatas)
+        console.log(' BookShelf componentDidMount');
         if(this.props.OnUpdateBookDatas){
            BooksAPI.getAll().then(books => {
             this.props.OnUpdateBookDatas(books);
@@ -23,13 +23,17 @@ class BookShelfList extends Component{
 
     filterBookDatas= () =>{
         
-        const  CurrentlyReadingBooks = this.props.BookDatas.filter( book => book.shelf === 'currentlyReading');
-        const  WantToReadBooks = this.props.BookDatas.filter( book => book.shelf === 'wantToRead');
-        const  ReadBooks = this.props.BookDatas.filter( book => book.shelf === 'read');
-        
-        //console.debug(` CurrentlyReadingBooks:${CurrentlyReadingBooks.length} WantToReadBooks:${WantToReadBooks.length} ReadBooks:${ReadBooks.length}`);
+        let {CurrentlyReadingBooks,WantToReadBooks,ReadBooks} = []
+        if(this.props.BookDatas && this.props.BookDatas.length > 0){
+
+              CurrentlyReadingBooks = this.props.BookDatas.filter( book => book.shelf === 'currentlyReading');
+              WantToReadBooks = this.props.BookDatas.filter( book => book.shelf === 'wantToRead');
+              ReadBooks = this.props.BookDatas.filter( book => book.shelf === 'read');
+            
+        }
         
         return {CurrentlyReadingBooks,WantToReadBooks,ReadBooks}
+        //console.debug(` CurrentlyReadingBooks:${CurrentlyReadingBooks.length} WantToReadBooks:${WantToReadBooks.length} ReadBooks:${ReadBooks.length}`);
     }
         
     render(){ 
