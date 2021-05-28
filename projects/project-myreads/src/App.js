@@ -17,28 +17,23 @@ class BooksApp extends React.Component {
   }
 
   changeBookShelf = (bookToUpdate,shelf) => {
-
     const books = [...this.state.BookDatas] //shallow copy
     const index = books.findIndex(x=>x.id === bookToUpdate.id);
 
-    if(books[index]){
-
-      console.log(`${bookToUpdate.title} ${bookToUpdate.shelf} Shelf Change to ${shelf}  `)
-      
+    if(books[index]){ 
       books[index].shelf = shelf;
-
       this.setState ( (currentState) => ({ 
-        BookDatas : books,
+        BookDatas : books.filter(x=>x.shelf !== 'none'),
       }));
-
       BooksAPI.update( books[index],shelf);
 
-     
+      console.log(`${bookToUpdate.title} ${bookToUpdate.shelf} Shelf Change to ${shelf}  `)
     }
-
   }
 
   render() {
+    // console.debug('app render  ' +  this.state.BookDatas.length)
+    // console.debug(this.state.BookDatas)
     return (
         <div className="app">
             <div className="list-books">
