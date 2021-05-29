@@ -1,4 +1,3 @@
-
 // Library Code
 function createStore (reducer) {
   // The store should have four parts
@@ -39,3 +38,21 @@ function todos (state = [], action) {
 
   return state
 }
+
+//pass todos reducer function which will be invoked later
+const store = createStore(todos)
+
+//callback function which is called from Lib code
+store.subscribe(() => {
+  console.log('The new state is: ', store.getState())
+})
+
+//update the state
+store.dispatch({
+  type: 'ADD_TODO',
+  todo: {
+    id: 0,
+    name: 'Learn Redux',
+    complete: false
+  }
+})
