@@ -75,11 +75,11 @@
             function goals (state = [], action) {
                 switch(action.type) {
                     case ADD_GOAL :
-                    return state.concat([action.goal])
+                        return state.concat([action.goal])
                     case REMOVE_GOAL :
-                    return state.filter((goal) => goal.id !== action.id)
+                        return state.filter((goal) => goal.id !== action.id)
                     default :
-                    return state
+                        return state
                 }
             }
 
@@ -94,9 +94,35 @@
 
             store.subscribe(() => {
                 console.log('The new state is: ', store.getState())
+                const {goals,todos} = store.getState()
+
+                //clear UI. this will be recreated with latest state array
+                document.getElementById('li-todo-items').innerHTML = ''
+                document.getElementById('li-goal-items').innerHTML = ''
+
+                todos.forEach( item => updateTodosUIList(item.name))
+                goals.forEach( item => updateGoalsUIList(item.name))
             })
 
-            const  generateId = () => math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
+
+            //add item into dom
+            function updateTodosUIList(todoName){
+                const node = document.createElement('li')
+                const txt = document.createTextNode(todoName);
+                node.appendChild(txt);
+
+                document.getElementById('li-todo-items').append(node);
+            }
+
+            function updateGoalsUIList(goalName){
+                const node = document.createElement('li')
+                const txt = document.createTextNode(goalName);
+                node.appendChild(txt);
+
+                document.getElementById('li-goal-items').append(node);
+            }
+
+            const  generateId = () => Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
     
             //function to add item
             function addTodo(){
@@ -108,7 +134,7 @@
                 store.dispatch( {
                     type : ADD_TODO,
                     todo :{
-                        id : generateId,
+                        id : generateId(),
                         name : todoname
                     }
                 })
@@ -121,8 +147,8 @@
                 //update state
                 store.dispatch( {
                     type : ADD_GOAL,
-                    todo :{
-                        id : generateId,
+                     goal :{
+                        id : generateId(),
                         name : goalame
                     }
                 })
@@ -131,6 +157,7 @@
             //addEventListener for btn
             document.getElementById('btn-todo-add').addEventListener('click', addTodo)
             document.getElementById('btn-goal-add').addEventListener('click', addGoal)
+
 
             // store.dispatch({
             //     type: ADD_TODO,
