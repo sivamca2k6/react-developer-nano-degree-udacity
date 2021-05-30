@@ -100,25 +100,52 @@
                 document.getElementById('li-todo-items').innerHTML = ''
                 document.getElementById('li-goal-items').innerHTML = ''
 
-                todos.forEach( item => updateTodosUIList(item.name))
-                goals.forEach( item => updateGoalsUIList(item.name))
+                todos.forEach( item => updateTodosUIList(item))
+                goals.forEach( item => updateGoalsUIList(item))
             })
 
+            function toggleTodoAction (id) {
+                return {
+                type: TOGGLE_TODO,
+                id,
+                }
+            }
+            function removeTodoAction (id) {
+                return {
+                    type: REMOVE_TODO,
+                    id,
+                }
+            }
+
+            function createRemoveButton (onClick) {
+                const removeBtn = document.createElement('button')
+                removeBtn.innerHTML = 'X'
+                removeBtn.addEventListener('click', onClick)
+                return removeBtn
+            }
 
             //add item into dom
-            function updateTodosUIList(todoName){
+            function updateTodosUIList(todo){
                 const node = document.createElement('li')
-                const txt = document.createTextNode(todoName);
+                const txt = document.createTextNode(todo.name);
+                const removeBtn = createRemoveButton(() => {
+                    store.dispatch(removeTodoAction(todo.id))
+                })
                 node.appendChild(txt);
+                node.appendChild(removeBtn)
+
+                node.style.textDecoration = todo.complete ? 'line-through' : 'none'
+                node.addEventListener('click', () => {
+                    store.dispatch(toggleTodoAction(todo.id))
+                })
 
                 document.getElementById('li-todo-items').append(node);
             }
 
-            function updateGoalsUIList(goalName){
+            function updateGoalsUIList(goal){
                 const node = document.createElement('li')
-                const txt = document.createTextNode(goalName);
+                const txt = document.createTextNode(goal.name);
                 node.appendChild(txt);
-
                 document.getElementById('li-goal-items').append(node);
             }
 
@@ -135,7 +162,8 @@
                     type : ADD_TODO,
                     todo :{
                         id : generateId(),
-                        name : todoname
+                        name : todoname,
+                        complete : false
                     }
                 })
             }
@@ -158,64 +186,6 @@
             document.getElementById('btn-todo-add').addEventListener('click', addTodo)
             document.getElementById('btn-goal-add').addEventListener('click', addGoal)
 
-
-            // store.dispatch({
-            //     type: ADD_TODO,
-            //     todo: {
-            //         id: 0,
-            //         name: 'Walk the dog',
-            //         complete: false,
-            //     }
-            // })
-
-            // store.dispatch({
-            //     type: ADD_TODO,
-            //     todo: {
-            //         id: 1,
-            //         name: 'Wash the car',
-            //         complete: false,
-            //     }
-            // })
-
-            // store.dispatch({
-            //     type: ADD_TODO,
-            //     todo: {
-            //         id: 2,
-            //         name: 'Go to the gym',
-            //         complete: true,
-            //     }
-            // })
-
-            // store.dispatch({
-            //     type: REMOVE_TODO,
-            //     id: 1
-            // })
-
-            // store.dispatch({
-            //     type: TOGGLE_TODO,
-            //     id: 0
-            // })
-
-            // store.dispatch({
-            //     type: ADD_GOAL,
-            //     goal: {
-            //         id: 0,
-            //         name: 'Learn Redux'
-            //     }
-            // })
-
-            // store.dispatch({
-            //     type: ADD_GOAL,
-            //     goal: {
-            //         id: 1,
-            //         name: 'Lose 20 pounds'
-            //     }
-            // })
-
-            // store.dispatch({
-            //     type: REMOVE_GOAL,
-            //     id: 0
-            // })
         </script>
     </body>
 </html>
