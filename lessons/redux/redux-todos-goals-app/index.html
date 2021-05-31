@@ -197,12 +197,21 @@
 
         <script type='text/babel'>
             function List (props) {
-                return (
-                    <ul>
-                    <li>LIST</li>
-                    </ul>
-                )
-            }
+                    return (
+                        <ul>
+                            {props.items.map((item) => (
+                                <li key={item.id}>
+                                <span>
+                                    {item.name}
+                                </span>
+                                <button onClick={() => props.remove(item)}>
+                                    X
+                                </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )
+                }
 
             class Todos extends React.Component {
                 addItem = (e) => {
@@ -219,7 +228,13 @@
                             }
                         })
                 }
+
+                removeItem = (todo) => {
+                        this.props.store.dispatch(removeTodoAction(todo.id))
+                    }
+
                 render() {
+
                     return (
                     <div>
                         <h1>Todo List</h1>
@@ -230,7 +245,10 @@
                         />
                         <button onClick={this.addItem}>Add Todo</button>
 
-                        <List />
+                        <List
+                            items={this.props.todos}
+                            remove={this.removeItem}
+                            />
                     </div>
                     )
                 }
@@ -261,7 +279,7 @@
                         />
                         <button onClick={this.addItem}>Add Goal</button>
 
-                        <List />
+                        <List items ={this.props.goals} />
                     </div>
                     )
                 }
