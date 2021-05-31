@@ -237,10 +237,29 @@
             }
 
             class Goals extends React.Component {
+                addItem = (e) => {
+                    e.preventDefault()
+                    const goalame = this.input.value
+                    this.input.value = ''
+
+                    this.props. store.dispatch({
+                            type : ADD_GOAL,
+                            goal :{
+                                id : generateId(),
+                                name : goalame
+                            }
+                        })
+                }
                 render() {
                     return (
                     <div>
-                       <h2> GOALS </h2>
+                        <h1>Goals</h1>
+                        <input
+                        type='text'
+                        placeholder='Add Goal'
+                        ref={(input) => this.input = input}
+                        />
+                        <button onClick={this.addItem}>Add Goal</button>
 
                         <List />
                     </div>
@@ -249,11 +268,17 @@
             }
 
             class App extends React.Component {
-            render() {
+                componentDidMount () {
+                    const { store } = this.props
+                    store.subscribe(() => this.forceUpdate()) // update state or trigger render
+                } 
+               render() {
+                const { store } = this.props
+                const { todos, goals } = store.getState()
                     return (
                     <div>
-                        <Todos store={this.props.store} />
-                        <Goals />
+                        <Todos todos={todos} store={this.props.store} />
+                        <Goals goals={goals} store={this.props.store} />
                     </div>
                     )
                 }
