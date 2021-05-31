@@ -60,21 +60,9 @@
             //     }
             // }
 
-            const store = Redux.createStore(Redux.combineReducers({ todos, goals}))
-                                           
-            store.subscribe(() => {
-                console.log('The new state is: ', store.getState())
-                const {goals,todos} = store.getState()
+            
 
-                //clear UI. this will be recreated with latest state array
-                document.getElementById('li-todo-items').innerHTML = ''
-                document.getElementById('li-goal-items').innerHTML = ''
-
-                todos.forEach( item => updateTodosUIList(item))
-                goals.forEach( item => updateGoalsUIList(item))
-            })
-
-            function checkAndDispatch (store, action) {
+            const checkAndDispatchMiddleware = (store) => (next) => (action) => {
                 if (
                     action.type === ADD_TODO &&
                     action.todo.name.toLowerCase().includes('bitcoin')
@@ -89,8 +77,24 @@
                     return alert("Nope. That's a bad idea.")
                 }
 
-                return store.dispatch(action)
-            }
+                return next(action)
+            };
+                      
+            const store = Redux.createStore(Redux.combineReducers({ todos, goals}),Redux.applyMiddleware(checkAndDispatchMiddleware))
+
+            store.subscribe(() => {
+                console.log('The new state is: ', store.getState())
+                const {goals,todos} = store.getState()
+
+                //clear UI. this will be recreated with latest state array
+                document.getElementById('li-todo-items').innerHTML = ''
+                document.getElementById('li-goal-items').innerHTML = ''
+
+                todos.forEach( item => updateTodosUIList(item))
+                goals.forEach( item => updateGoalsUIList(item))
+            })
+
+
 
             function toggleTodoAction (id) {
                 return {
@@ -117,14 +121,14 @@
                 const node = document.createElement('li')
                 const txt = document.createTextNode(todo.name);
                 const removeBtn = createRemoveButton(() => {
-                    checkAndDispatch (store , removeTodoAction(todo.id))
+                    store.dispatch(removeTodoAction(todo.id))
                 })
                 node.appendChild(txt);
                 node.appendChild(removeBtn)
 
                 node.style.textDecoration = todo.complete ? 'line-through' : 'none'
                 node.addEventListener('click', () => {
-                    checkAndDispatch (store ,toggleTodoAction(todo.id))
+                    store.dispatch(toggleTodoAction(todo.id))
                 })
 
                 document.getElementById('li-todo-items').append(node);
@@ -146,7 +150,7 @@
                 input.value ='';
 
                 //update state
-                checkAndDispatch (store , {
+                store.dispatch({
                     type : ADD_TODO,
                     todo :{
                         id : generateId(),
@@ -161,7 +165,7 @@
                 input.value ='';
 
                 //update state
-                checkAndDispatch (store , {
+                store.dispatch({
                     type : ADD_GOAL,
                      goal :{
                         id : generateId(),
