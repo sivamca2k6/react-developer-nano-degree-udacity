@@ -121,25 +121,43 @@
             class Todos extends React.Component {
                 addItem = (e) => {
                     e.preventDefault()
-                    const todoname = this.input.value
-                    this.input.value = ''
-
-                    this.props.store.dispatch({
+                    
+                    return API.saveTodo(this.input.value)
+                    .then((todo) => {
+                        this.props.store.dispatch({
                             type : ADD_TODO,
                             todo :{
-                                id : generateId(),
-                                name : todoname,
+                                id : todo.id,
+                                name : todo.name,
                                 complete : false
                             }
                         })
+                        this.input.value = ''
+                    })
+                    .catch(() => {
+                        alert('There was an error. Try again.')
+                    })
                 }
 
                 removeItem = (todo) => {
                         this.props.store.dispatch(removeTodoAction(todo.id))
+
+                        //api call
+                        return API.deleteTodo(todo.id)
+                        .catch(() => {
+                            this.props.store.dispatch(addTodoAction(todo))
+                            alert('An error occurred. Try again.')
+                        })
                     }
                 
                 toggleItem = (id) => {
                         this.props.store.dispatch(toggleTodoAction(id))
+
+                        return API.saveTodoToggle(id)
+                        .catch(() => {
+                            this.props.store.dispatch(toggleTodoAction(id))
+                            alert('An error occurred. Try again.')
+                        })
                     }
 
                 render() {
@@ -168,16 +186,18 @@
             class Goals extends React.Component {
                 addItem = (e) => {
                     e.preventDefault()
-                    const goalame = this.input.value
-                    this.input.value = ''
-
-                    this.props. store.dispatch({
+                    return API.saveGoal(this.input.value)
+                    .then((goal) => {
+                        this.props.store.dispatch({
                             type : ADD_GOAL,
                             goal :{
                                 id : generateId(),
-                                name : goalame
+                                name : goal.name
                             }
                         })
+                        this.input.value = ''
+                    })
+                    .catch(() => alert('There was an error. Try again.'))
                 }
                 render() {
                     return (
