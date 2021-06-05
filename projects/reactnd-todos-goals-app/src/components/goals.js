@@ -5,6 +5,9 @@ import {
   handleAddGoal,
   handleDeleteGoal
 } from '../actions/goals'
+import {
+    RECEIVE_DATA
+  } from '../actions/shared'
 
 class Goals extends React.Component {
   addItem = (e) => {

@@ -7,6 +7,10 @@ import {
   handleToggle
 } from '../actions/todos'
 
+import {
+    RECEIVE_DATA
+  } from '../actions/shared'
+
 class Todos extends React.Component {
   addItem = (e) => {
     e.preventDefault()
