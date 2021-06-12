@@ -45,13 +45,19 @@ a {
 
 .active {
   font-weight: bold;
+  border: 10px solid #bdbd6f;
+  text-decoration:overline;
 }
+
 
 .nav ul {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   text-decoration: none;
+  border: 10px solid #bdbd6f;
+  border-radius:10px;
+  padding: 5px;
 }
 
 .nav li:first-child {
@@ -72,4 +78,93 @@ li {
   height: 50px;
   border-radius: 25px;
   margin: 10px;
+}
+
+.avatarBox {
+  height: 100%;
+  width: 25%;
+  border-radius: 15px;
+  padding: 5px;
+  display: grid;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  cursor: pointer;
+  align-items: start;
+  justify-content: space-between;
+}
+.avatarBox :first-child {
+  align-self: center;
+}
+
+.box {
+  width: 100%;
+  max-width: 590px;
+  padding: 10px;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+}
+
+.boxSelect {
+  width: 100%;
+  max-width: 590px;
+  padding: 10px;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.poll {
+  width: 100%;
+  max-width: 590px;
+  padding: 10px;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.poll-info {
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.poll-info > div > span:first-child {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.poll-info > div > span:nth-child(2) {
+  color: #969696;
+  font-size: 16px;
+}
+.poll-info > div > div {
+  color: #969696;
+  font-size: 15px;
+}
+.poll-info > div > p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+.poll-icons {
+  display: flex;
+  align-items: center;
+}
+.poll-icons > span {
+  color: #969696;
+  margin: 0 15px 0 5px;
+  font-size: 18px !important;
+}
+.poll-icon {
+  font-size: 27px;
+  color: #697784;
+}
+.poll-icon:hover {
+  color: #00b5d6;
+  cursor: pointer;
 }
