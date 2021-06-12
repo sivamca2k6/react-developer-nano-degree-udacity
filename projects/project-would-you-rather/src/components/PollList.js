@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import Poll from './Poll'
+import PollShort from './PollShort'
+import { Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class PollList extends Component {
 
@@ -9,11 +11,13 @@ class PollList extends Component {
     <ul>
       {this.props.pollIds.map((id) => (
         <li key={id}>
-          <Poll id={id}/>
+           <Link to={`/poll/${id}`} >
+            <PollShort id={id}/>
+          </Link>
         </li>
       ))}
     </ul>
   </div>
   )};
 }
-export default PollList
+export default withRouter(connect()(PollList))
