@@ -57,7 +57,7 @@ class Home extends Component {
         </label>
       </div>
       <div className='box'>
-        <PollList pollIds = {pollIds} />
+        <PollList pollIds = {pollIds} isUnanswered={isUnanswered} />
       </div>   
   </div>
   )};

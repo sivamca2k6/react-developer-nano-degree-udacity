@@ -9,6 +9,7 @@ import NewPoll from './NewPoll';
 import Home from './Home';
 import LeaderBoard from './LeaderBoard';
 import Login from './Login';
+import PollVote from './PollVote'
 
 class App extends Component {
   componentDidMount() {
@@ -26,6 +27,7 @@ class App extends Component {
         <div>
             <Route path='/' exact component={Home} />
             <Route path='/poll/:id' component={PollDetails} />
+            <Route path='/pollvote/:id' component={PollVote} />
             <Route path='/new' component={NewPoll} />
             <Route path='/leaderboard' component={LeaderBoard} />
             <Route path='/login' component={Login} />

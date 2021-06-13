@@ -1,4 +1,4 @@
-import { RECEIVE_USERS } from '../actions/users'
+import { RECEIVE_USERS,SAVE_USER_POLLS_VOTE } from '../actions/users'
 
 export default function users (state = {}, action) {
   switch(action.type) {
@@ -7,6 +7,18 @@ export default function users (state = {}, action) {
         ...state,
         ...action.users
       }
+      case SAVE_USER_POLLS_VOTE :
+        const {qid,answer,authedUser} = action
+         return {
+           ...state,
+           [authedUser]: {
+            ...state[authedUser],
+            answers: {
+              ...state[authedUser].answers,
+              [qid]: answer
+            }
+          }
+         }  
     default :
       return state
   }
