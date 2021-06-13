@@ -1,4 +1,4 @@
-import { RECEIVE_USERS,SAVE_USER_POLLS_VOTE } from '../actions/users'
+import { RECEIVE_USERS,SAVE_USER_POLLS_VOTE,SAVE_USER_POLL } from '../actions/users'
 
 export default function users (state = {}, action) {
   switch(action.type) {
@@ -19,6 +19,18 @@ export default function users (state = {}, action) {
             }
           }
          }  
+      case SAVE_USER_POLL :
+          const {poll} = action
+          return {
+            ...state,
+            ...state = {
+              ...state,
+              [poll.author]: {
+                ...state[poll.author],
+                questions: state[poll.author].questions.concat([poll.id])
+              }
+            }
+          }
     default :
       return state
   }

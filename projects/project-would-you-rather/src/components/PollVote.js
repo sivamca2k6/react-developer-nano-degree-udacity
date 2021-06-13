@@ -44,6 +44,8 @@ class  PollVote extends Component {
               <h1>Would you Rather</h1>
               <div className='box-option' onChange={this.onChangeValue}>
                 <input type="radio" value="optionOne"  name="vote" /> Option 1 : {poll.optionOne.text}
+              </div>
+              <div className='box-option' onChange={this.onChangeValue}>
                 <input type="radio" value="optionTwo" name="vote" /> Option 2 :  {poll.optionTwo.text}
               </div>
               <button onClick={this.onSubmit} className='btn' disabled={!this.state.option}>Submit</button>

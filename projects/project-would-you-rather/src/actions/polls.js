@@ -1,8 +1,6 @@
-//import { showLoading, hideLoading } from 'react-redux-loading'
-
 export const RECEIVE_POLLS = 'RECEIVE_POLLS'
 export const SAVE_POLLS_VOTE = 'SAVE_POLLS_VOTE'
-//export const SAVE_POLLS = 'SAVE_POLLS'
+export const SAVE_POLL = 'SAVE_POLL'
 
 export function receivePolls (polls) {
   return {
@@ -20,10 +18,12 @@ export function savePollVote ({ authedUser, qid, answer  }) {
   }
 } 
 
-// function savePoll ({ question  }) {
-//   return {
-//     type: SAVE_POLLS,
-//     question,
-//   }
-// }
+export function savePoll ( poll  ) {
+  //console.log(poll)
+  return {
+    type: SAVE_POLL,
+    poll,
+  }
+}
+
 

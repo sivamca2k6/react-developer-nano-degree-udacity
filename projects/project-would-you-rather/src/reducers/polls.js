@@ -1,4 +1,4 @@
-import { RECEIVE_POLLS,SAVE_POLLS_VOTE} from '../actions/polls'
+import { RECEIVE_POLLS,SAVE_POLLS_VOTE,SAVE_POLL} from '../actions/polls'
 
 export default function polls (state = {}, action) {
   switch(action.type) {
@@ -20,6 +20,16 @@ export default function polls (state = {}, action) {
             }
           }
         }  
+    case SAVE_POLL :
+      const {poll} = action
+      console.log(poll)
+      return {
+        ...state,
+        ...state = {
+          ...state,
+          [poll.id]: poll
+        }
+      }
     default :
       return state
   }

@@ -20,5 +20,6 @@ export function savePollsVote (info) {
 }
 
 export function savePolls (info) {
+  //console.log(info)
   return _saveQuestion(info)
 }

@@ -151,6 +151,8 @@ export function _saveQuestion (question) {
   return new Promise((res, rej) => {
     const authedUser = question.author;
     const formattedQuestion = formatQuestion(question);
+    
+    //console.log( users[authedUser].questions.length)
 
     setTimeout(() => {
       questions = {
@@ -165,6 +167,8 @@ export function _saveQuestion (question) {
           questions: users[authedUser].questions.concat([formattedQuestion.id])
         }
       }
+
+      //console.log( users[authedUser].questions.length)
 
       res(formattedQuestion)
     }, 1000)

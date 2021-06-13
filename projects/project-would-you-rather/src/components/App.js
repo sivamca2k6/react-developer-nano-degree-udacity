@@ -19,7 +19,8 @@ class App extends Component {
     <Router>
        <Fragment>
         <div className="container">
-            Would you rather App
+            <h2 className="title"> Would you rather App</h2>
+            
             <LoadingBar />
             <Nav />
         </div>
