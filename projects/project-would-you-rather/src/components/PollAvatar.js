@@ -8,7 +8,7 @@ export default function  PollAvatar(props) {
                 alt={`Avatar of ${pollOwnerInfo.name}`}
                 className='avatar'
             />
-        <p>{pollOwnerInfo.name} asks...</p>
+        <p>{pollOwnerInfo.name} </p>
         </div>
     );
 }

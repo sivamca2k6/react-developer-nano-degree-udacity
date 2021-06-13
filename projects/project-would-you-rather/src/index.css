@@ -113,6 +113,14 @@ li {
   border: 10px solid #dad7d7;
   border-radius: 3px;
 }
+.box-userprofile-score {
+  width: 40%;
+  padding: 5px;
+  display: flex;
+  margin: 10 auto;
+  border: 10px solid #dad7d7;
+  border-radius: 3px;
+}
 
 .box {
   width: 100%;
