@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {  withRouter } from 'react-router-dom'
 import { setAuthedUser } from '../actions/authedUser'
 
 
@@ -57,4 +58,4 @@ function mapStateToProps ({ users}) { // it will map only data needed. and  list
     }
   }
 
-export default connect(mapStateToProps)(Login)
+export default withRouter(connect(mapStateToProps)(Login))

@@ -6,11 +6,10 @@ import { showLoading, hideLoading } from 'react-redux-loading'
 import {savePollVote,savePoll} from './polls'
 import {saveUserPollVote,saveUserPoll} from './users'
 
-const AUTHED_ID = 'tylermcginnis' // todo : set at login id
-
 export function handleInitialData () {
  
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { authedUser } = getState()
     
     dispatch(showLoading())
 
@@ -18,7 +17,7 @@ export function handleInitialData () {
       .then(({ users, polls }) => {
         dispatch(receiveUsers(users))
         dispatch(receivePolls(polls))
-        dispatch(setAuthedUser(AUTHED_ID))
+        dispatch(setAuthedUser(authedUser))
         dispatch(hideLoading())
       })
   }

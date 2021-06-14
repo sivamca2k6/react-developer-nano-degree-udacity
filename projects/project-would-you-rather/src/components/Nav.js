@@ -1,8 +1,16 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { Component } from 'react'
+import { NavLink, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { setAuthedUser } from '../actions/authedUser'
 
-export default function Nav () {
-  return (
+class Nav extends Component {
+
+  handleLogOut = (e) => {
+    e.preventDefault();
+    this.props.dispatch(setAuthedUser(null))
+    this.props.history.push(`/login`)
+  }
+  render () { return (
     <nav className='nav'>
       <ul>
         <li>
@@ -10,7 +18,7 @@ export default function Nav () {
             Home
           </NavLink>
         </li>
-        <li>
+        <li> 
           <NavLink to='/new' activeClassName='active'>
             New Poll
           </NavLink>
@@ -20,15 +28,30 @@ export default function Nav () {
             LeaderBoard
           </NavLink>
         </li>
-        <li>
-            User - Siva
-        </li>
-        <li>
-          <NavLink to='/login' activeClassName='active'>
-               Logout
-          </NavLink>
-        </li>
+        
+        {(this.props.authedUser) ? (
+               <li>
+                 <div className ='center'>
+                 Hello , {this.props.authedUser}  
+                 <NavLink to='/' onClick={this.handleLogOut} >
+                      Logout
+                 </NavLink>
+                 </div>
+               </li>) : (
+                <li>
+                <NavLink to='/login' activeClassName='active'>
+                  Login
+                </NavLink>
+              </li>
+               )}
       </ul>
     </nav>
-  )
+  )}
 }
+
+function mapStateToProps ({ authedUser }) {
+  return {
+    authedUser,
+  }
+}
+export default withRouter(connect(mapStateToProps)(Nav))
