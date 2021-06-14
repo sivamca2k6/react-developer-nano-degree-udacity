@@ -32,7 +32,8 @@ class Nav extends Component {
         {(this.props.authedUser) ? (
                <li>
                  <div className ='center'>
-                 Hello , {this.props.authedUser}  
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 Hello , {this.props.authedUser} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                  <NavLink to='/' onClick={this.handleLogOut} >
                       Logout
                  </NavLink>
