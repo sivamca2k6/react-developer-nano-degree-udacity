@@ -12,6 +12,7 @@ import Login from './Login';
 import PollVote from './PollVote'
 import { setAuthedUser } from '../actions/authedUser'
 import AuthRoute from "./AuthRoute";
+import NotFound from "./NotFound"
 
 class App extends Component {
   
@@ -21,11 +22,12 @@ class App extends Component {
     if(userSession)
         this.props.dispatch(setAuthedUser(JSON.parse(userSession)))
 
-    //console.log(userSession)
+    console.log(userSession)
 
     this.props.dispatch(handleInitialData())
   }
-  render() { return(
+  render() { 
+     return(
     <Router>
        <Fragment>
         <div className="container">
@@ -41,6 +43,7 @@ class App extends Component {
             <AuthRoute path='/new' component={NewPoll} type="private" />
             <AuthRoute path='/leaderboard' component={LeaderBoard} type="private" />
             <AuthRoute path='/login' component={Login} type="guest" />
+            <AuthRoute component={NotFound} />
         </Switch>
       </Fragment>
     </Router>

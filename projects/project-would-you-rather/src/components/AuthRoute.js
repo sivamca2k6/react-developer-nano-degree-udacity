@@ -4,7 +4,9 @@ import { Redirect, Route } from "react-router";
 
 const AuthRoute = props => {
 
-  const { authedUser, type } = props;
+  const authedUser = localStorage.getItem("userSession");      
+  //console.log(authedUser)
+  const { type } = props;
 
   if (type === "guest" && authedUser) 
         return <Redirect to="/" />;
@@ -14,8 +16,4 @@ const AuthRoute = props => {
   return <Route {...props} />;
 };
 
-const mapStateToProps = ({ authedUser }) => ({
-    authedUser
-});
-
-export default connect(mapStateToProps)(AuthRoute);
+export default connect()(AuthRoute);
