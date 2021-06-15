@@ -18,7 +18,13 @@ class Login extends Component {
     e.preventDefault()
     this.props.dispatch(setAuthedUser(this.state.selectedUser))
     this.setState(() => ({ selectedUser: '', }))
-    this.props.history.push(`/`)
+
+    //console.log(this.props.location.state.referrer)
+    if(this.props.location.state)
+      this.props.history.push(this.props.location.state.referrer)
+    else 
+      this.props.history.push('/')
+
   }
   render() {
     const { selectedUser } = this.state

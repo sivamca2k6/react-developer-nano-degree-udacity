@@ -4,12 +4,11 @@ import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
 import Nav from './Nav'
-import PollDetails from './PollDetails';
+import Questions from './Questions';
 import NewPoll from './NewPoll';
 import Home from './Home';
 import LeaderBoard from './LeaderBoard';
 import Login from './Login';
-import PollVote from './PollVote'
 import { setAuthedUser } from '../actions/authedUser'
 import AuthRoute from "./AuthRoute";
 import NotFound from "./NotFound"
@@ -38,9 +37,8 @@ class App extends Component {
       
         <Switch>
             <AuthRoute exact path='/' component={Home} type="private" />
-            <AuthRoute path='/poll/:id' component={PollDetails} type="private" />
-            <AuthRoute path='/pollvote/:id' component={PollVote} type="private" />
-            <AuthRoute path='/new' component={NewPoll} type="private" />
+            <AuthRoute path='/questions/:id' component={Questions} type="private" />
+            <AuthRoute path='/add' component={NewPoll} type="private" />
             <AuthRoute path='/leaderboard' component={LeaderBoard} type="private" />
             <AuthRoute path='/login' component={Login} type="guest" />
             <AuthRoute component={NotFound} />

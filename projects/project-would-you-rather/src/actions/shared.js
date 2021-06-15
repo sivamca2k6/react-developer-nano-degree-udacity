@@ -4,7 +4,7 @@ import { receivePolls } from './polls'
 import { setAuthedUser } from './authedUser'
 import { showLoading, hideLoading } from 'react-redux-loading'
 import {savePollVote,savePoll} from './polls'
-import {saveUserPollVote,saveUserPoll} from './users'
+import {saveUserPollVote} from './users'
 
 export function handleInitialData () {
  
@@ -35,7 +35,7 @@ export function handleSavePollVote (info) {
         console.warn('Error in handleSavePollVote: ', e)
 
         dispatch(savePollVote(info))
-        dispatch(saveUserPollVote(info))
+        //dispatch(saveUserPollVote(info))
 
         alert('There was an error in voting. Try again.')
       })
@@ -59,7 +59,7 @@ export function handleAddPoll (optionOneText, optionTwoText) {
     return savePolls(poll)
       .then((poll) => {
         dispatch(savePoll(poll))
-        dispatch(saveUserPoll(poll))
+        //dispatch(saveUserPoll(poll))
       })
       .then(() => dispatch(hideLoading()))
       .catch((e) => {

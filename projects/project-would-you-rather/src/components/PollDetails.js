@@ -37,13 +37,13 @@ class  PollDetails extends Component {
 }
 
 function mapStateToProps ({authedUser,users, polls},props) {
-  const { id } = props.match.params
-  const poll = polls[id]
+  const poll = polls[props.id]
   const pollOwnerInfo = users[poll.author]
 
   return {
     authedUser,
     poll: poll,
+    users: users,
     pollOwnerInfo : pollOwnerInfo
   }
 }

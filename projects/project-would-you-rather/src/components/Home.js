@@ -20,23 +20,24 @@ class Home extends Component {
   getFilteredPollList = (isUnanswered) =>{
     const { polls,users,authedUser } = this.props
     const loggedInUser = users[authedUser]
-    let filteredPollList = {}
+    let filteredPollListSort = {}
     
     if(loggedInUser !== undefined && loggedInUser.answers !== undefined)
     {
       const answered = Object.keys(loggedInUser.answers)
-      filteredPollList = Object.keys(polls)
-      .filter(key => isUnanswered ? !answered.includes(key) : answered.includes(key))
-      .sort((a,b) => a.timestamp - b.timestamp)
-      .reduce((obj, key) => {
-        obj[key] = polls[key];
+      
+      filteredPollListSort = Object.values(polls)
+      .filter(poll => isUnanswered ? !answered.includes(poll.id) : answered.includes(poll.id))
+      .sort((a,b) => b.timestamp - a.timestamp)
+      .reduce((obj, poll) => {
+        obj[poll.id] = poll.id;
         return obj;
       }, {});
 
-      //console.log(filteredPollList);
+      //console.log(Object.keys(filteredPollListSort));
     }
 
-    return  Object.keys(filteredPollList)
+    return  Object.keys(filteredPollListSort)
   }
 
   render() {

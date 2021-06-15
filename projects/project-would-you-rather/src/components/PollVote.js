@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import PollAvatar from './PollAvatar'
 import { handleSavePollVote } from '../actions/shared'
 
@@ -26,7 +27,7 @@ class  PollVote extends Component {
       authedUser
     }))
 
-    this.props.history.push(`/poll/${poll.id}`)
+    this.props.history.push(`/questions/${poll.id}`)
   }
 
   onChangeValue(event) {
@@ -55,8 +56,8 @@ class  PollVote extends Component {
 }
 
 function mapStateToProps ({authedUser,users, polls},props) {
-  const { id } = props.match.params
-  const poll = polls[id]
+  //console.log(props)
+  const poll = polls[props.id]
   const pollOwnerInfo = users[poll.author]
 
   return {
@@ -67,5 +68,5 @@ function mapStateToProps ({authedUser,users, polls},props) {
   }
 }
 
-export default connect(mapStateToProps)(PollVote)
+export default withRouter(connect(mapStateToProps)(PollVote))
   

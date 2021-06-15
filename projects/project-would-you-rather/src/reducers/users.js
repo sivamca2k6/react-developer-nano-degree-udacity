@@ -1,4 +1,5 @@
-import { RECEIVE_USERS,SAVE_USER_POLLS_VOTE,SAVE_USER_POLL } from '../actions/users'
+import { RECEIVE_USERS,SAVE_USER_POLLS_VOTE } from '../actions/users'
+import {SAVE_POLL} from '../actions/polls'
 
 export default function users (state = {}, action) {
   switch(action.type) {
@@ -19,7 +20,7 @@ export default function users (state = {}, action) {
             }
           }
          }  
-      case SAVE_USER_POLL :
+      case SAVE_POLL :
           const {poll} = action
           return {
             ...state,

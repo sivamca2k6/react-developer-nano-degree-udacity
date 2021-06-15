@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
 import PollShort from './PollShort'
-import { Link, withRouter } from 'react-router-dom'
+import {  withRouter,NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 class PollList extends Component {
 
   render() {
-  const link = this.props.isUnanswered ? 'pollvote' : 'poll'
   return (
     <div>
     <ul>
       {this.props.pollIds.map((id) => (
         <li key={id}>
-           <Link to={`/${link}/${id}`} >
+           <NavLink to={`/questions/${id}`} >
             <PollShort id={id}/>
-          </Link>
+          </NavLink>
         </li>
       ))}
     </ul>
