@@ -1,0 +1,12 @@
+{
+  "name": "reactnd-native-udafitness-app",
+  "displayName": "reactnd-native-udafitness-app",
+  "expo": {
+    "name": "reactnd-native-udafitness-app",
+    "slug": "reactnd-native-udafitness-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
