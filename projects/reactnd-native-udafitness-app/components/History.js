@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import { receiveEntries, addEntry } from '../actions'
 import { timeToString, getDailyReminderValue } from '../utils/helpers'
 import { fetchCalendarResults } from '../utils/api'
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars'
+//import {Calendar, CalendarList, Agenda} from 'react-native-calendars'
 import { white } from '../utils/colors'
 import DateHeader from './DateHeader'
 import MetricCard from './MetricCard'
 
-class History extends Component {
+class History extends Component { 
   componentDidMount () {
     const { dispatch } = this.props
 
@@ -54,11 +54,12 @@ class History extends Component {
     const { entries } = this.props
 
     return (
-      <Agenda
-        items={entries}
-        renderItem={this.renderItem}
-        renderEmptyDate={this.renderEmptyDate}
-      />
+      <View></View>
+      // <Agenda
+      //   items={entries}
+      //   renderItem={this.renderItem}
+      //   renderEmptyDate={this.renderEmptyDate}
+      // />
     )
   }
 }
