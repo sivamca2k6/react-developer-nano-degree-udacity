@@ -1,0 +1,12 @@
+{
+  "name": "project-mobile-flashcards",
+  "displayName": "project-mobile-flashcards",
+  "expo": {
+    "name": "project-mobile-flashcards",
+    "slug": "project-mobile-flashcards",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
