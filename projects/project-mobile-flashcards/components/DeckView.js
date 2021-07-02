@@ -8,10 +8,10 @@ const DeckView = ({route,navigation}) =>{
         <View style={styles.container}>
             <Text style={{ fontSize: 68, height: 100,}}> {deckItem.title}</Text>
             <Text style={{ fontSize: 25,height: 74,}}> No of Cards : {deckItem.questions.length}</Text>
-            <TouchableOpacity style = {styles.button} onPress={() => navigation.navigate('Details')} >
+            <TouchableOpacity style = {styles.button} onPress={() => navigation.navigate('QuizView',{deckItem:deckItem})} >
                 <Text style ={{ color:'white'}}>Add Card</Text>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.button} onPress={() => navigation.navigate('Details')} >
+            <TouchableOpacity style = {styles.button} onPress={() => navigation.navigate('QuizView',{deckItem:deckItem})} >
                      <Text style ={{ color:'white'}}>Start Quiz</Text>
             </TouchableOpacity>
         </View>

@@ -4,6 +4,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import DeckListView from './components/DeckListView'
 import NewDeck from './components/NewDeck';
 import DeckView from './components/DeckView';
+import QuizView from  './components/QuizView'
 import { createStackNavigator } from '@react-navigation/stack';
 import { gray, blue,white,purple,orange,lightPurp,pink} from './utils/colors'
 
@@ -17,6 +18,9 @@ const Home = () =>{
                       headerTitleStyle: { alignSelf: 'center' }, headerStyle: {backgroundColor: orange,}, headerTintColor: white }} /> 
         <Stack.Screen name = "DeckView" component={DeckView}        
                       options={({ route }) => ({ title: route.params.deckItem.title, 
+                      headerStyle: {backgroundColor: orange,}, headerTintColor: white  })} />
+        <Stack.Screen name = "QuizView" component={QuizView}        
+                      options={({ route }) => ({ title: 'Quiz', 
                       headerStyle: {backgroundColor: orange,}, headerTintColor: white  })} />
                                
       </Stack.Navigator>
