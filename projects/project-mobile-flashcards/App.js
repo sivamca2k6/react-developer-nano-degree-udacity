@@ -5,27 +5,29 @@ import DeckListView from './components/DeckListView'
 import NewDeck from './components/NewDeck';
 import DeckView from './components/DeckView';
 import { createStackNavigator } from '@react-navigation/stack';
+import { gray, blue,white,purple,orange,lightPurp,pink} from './utils/colors'
 
 
 const Stack = createStackNavigator();
-
 const Home = () =>{
   return (
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={DeckListView} ></Stack.Screen>
-        <Stack.Screen name = "DeckView" component={DeckView}></Stack.Screen>
+        <Stack.Screen name="DeckListView" component={DeckListView} 
+                      options={{ title: 'Deck List', 
+                      headerTitleStyle: { alignSelf: 'center' }, headerStyle: {backgroundColor: orange,}, headerTintColor: white }} /> 
+        <Stack.Screen name = "DeckView" component={DeckView}        
+                      options={({ route }) => ({ title: route.params.deckItem.title, 
+                      headerStyle: {backgroundColor: orange,}, headerTintColor: white  })} />
+                               
       </Stack.Navigator>
-);
-}
-
+)};
 
 const Tab = createMaterialTopTabNavigator();
-
 export default function App() {
   return (
       <NavigationContainer >
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={Home} ></Tab.Screen>
+          <Tab.Screen name="Home" component={Home}  ></Tab.Screen>
           <Tab.Screen name = "New Deck" component={NewDeck}></Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
