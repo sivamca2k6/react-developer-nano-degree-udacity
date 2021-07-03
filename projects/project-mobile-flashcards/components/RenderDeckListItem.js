@@ -27,6 +27,7 @@ const onDeckPress = (deckItem,navigation) =>{
 
 const RenderDeckListItem = (props) =>{
     const {deckItem,navigation} = props
+    console.log(deckItem)
     return(
         <TouchableOpacity style={styles.item} onPress={() => onDeckPress(deckItem,navigation)}>
             <Text style={{ fontSize: 28, height: 44,}}> {deckItem.title}</Text>

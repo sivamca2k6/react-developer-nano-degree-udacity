@@ -1,30 +1,22 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { formatDeckListResults, DECKLIST_STORAGE_KEY } from './_decks'
 
-   
- var data = {
-    "React": {
-      title: 'React',
-      questions: [
-        {
-          question: 'What is React?',
-          answer: 'A library for managing user interfaces'
-        },
-        {
-          question: 'Where do you make Ajax requests in React?',
-          answer: 'The componentDidMount lifecycle event'
-        }
-      ]
-    },
-    "JavaScript": {
-      title: 'JavaScript',
-      questions: [
-        {
-          question: 'What is a closure?',
-          answer: 'The combination of a function and the lexical environment within which that function was declared.'
-        }
-      ]
-    }
+export function getDecksApi () {
+  return AsyncStorage.getItem(DECKLIST_STORAGE_KEY)
+    .then(formatDeckListResults)
+}
+
+export function addDeckApi(title){
+  const newDeck = {
+    title: title,
+    questions: [],
+    isCorrect: false
   }
+  return AsyncStorage.mergeItem(DECKLIST_STORAGE_KEY, JSON.stringify({
+    [title]: newDeck,
+  }))
+}
 
-  export function getDecks () {
-    return data;
-} 
+export function clearDecksApi () {
+  return AsyncStorage.clear();
+}

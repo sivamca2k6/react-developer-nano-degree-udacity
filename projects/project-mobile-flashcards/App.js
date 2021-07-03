@@ -7,6 +7,9 @@ import DeckView from './components/DeckView';
 import QuizView from  './components/QuizView'
 import { createStackNavigator } from '@react-navigation/stack';
 import { gray, blue,white,purple,orange,lightPurp,pink} from './utils/colors'
+import reducer from './reducers';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 
 const Stack = createStackNavigator();
@@ -29,12 +32,14 @@ const Home = () =>{
 const Tab = createMaterialTopTabNavigator();
 export default function App() {
   return (
+    <Provider store={createStore(reducer)}>
       <NavigationContainer >
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={Home}  ></Tab.Screen>
+          <Tab.Screen name="Home" component={Home}  initialRouteName="Home" ></Tab.Screen>
           <Tab.Screen name = "New Deck" component={NewDeck}></Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
+    </Provider>
   );
 }
 
