@@ -10,7 +10,7 @@ export function addDeckApi(title){
   const newDeck = {
     title: title,
     questions: [],
-    isCorrect: false
+    isAnswerCorrect: false
   }
   return AsyncStorage.mergeItem(DECKLIST_STORAGE_KEY, JSON.stringify({
     [title]: newDeck,
@@ -19,4 +19,14 @@ export function addDeckApi(title){
 
 export function clearDecksApi () {
   return AsyncStorage.clear();
+}
+
+export function addCardToDeckApi (title, card) {
+  console.log(card)
+  return AsyncStorage.getItem(DECKLIST_STORAGE_KEY)
+    .then((results) => {
+      const data = JSON.parse(results);
+      data[title].questions.push(card);
+      AsyncStorage.setItem(DECKLIST_STORAGE_KEY, JSON.stringify(data))
+    })
 }
