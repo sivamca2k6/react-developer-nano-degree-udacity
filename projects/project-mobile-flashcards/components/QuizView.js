@@ -2,6 +2,8 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity,Button,Animated } from 'react-native'
 import { gray,blue,white,purple,orange,lightPurp,pink} from '../utils/colors'
 import { connect } from 'react-redux';
+import { save_quiz_score } from '../actions'
+import {saveQuizScoreApi} from '../utils/api'
 
 class QuizView extends React.Component {
 
@@ -12,7 +14,7 @@ class QuizView extends React.Component {
         }
       }
 
-    componentWillMount() {
+    componentDidMount() {
         this.animatedValue = new Animated.Value(0);
         this.value = 0;
         this.animatedValue.addListener(({ value }) => {
@@ -30,7 +32,7 @@ class QuizView extends React.Component {
 
     onShowAnswer = () =>{
         if (this.value >= 90) {
-            this.setState({onAnswerCard : true})
+            this.setState({onAnswerCard : false})
             Animated.timing(this.animatedValue,{
               toValue: 0,
               friction: 8,
@@ -38,7 +40,7 @@ class QuizView extends React.Component {
               useNativeDriver: true
             }).start();
           } else {
-            this.setState({onAnswerCard : false})
+            this.setState({onAnswerCard : true})
             Animated.timing(this.animatedValue,{
               toValue: 180,
               friction: 8,
@@ -48,40 +50,86 @@ class QuizView extends React.Component {
           }
     }
     
+    validateAnswer = (answer) => {
+        const {dispatch,deckItem,currentQuestionCount} = this.props
+        const currentQuestion  = deckItem.questions[currentQuestionCount]
+
+        if ( (currentQuestion.isAnswerCorrect === true && answer === 'correct') || 
+             (currentQuestion.isAnswerCorrect === false && answer === 'incorrect'))
+        {
+            deckItem.score =  deckItem.score + 1
+            console.log('Correct Answer - ' + deckItem.score)
+        }
+        else 
+        {
+            console.log('Wrong Answer - ' + + deckItem.score) 
+        }
+
+        saveQuizScoreApi(deckItem.title,deckItem.score).then(
+            () => dispatch(save_quiz_score(deckItem.title,deckItem.score)));
+
+        return deckItem.score
+    }
+
+    navigate = () => {
+        const {navigation,deckItem,total,currentQuestionCount} = this.props
+        if(total === currentQuestionCount+1)
+        {
+
+        }
+        else
+        {
+            navigation.push('QuizView',{deckItem:deckItem,currentQuestionCount : currentQuestionCount+1})
+        }
+    }
+
+    onCorrect = () => {
+        const {deckItem} = this.props
+        deckItem.score  = this.validateAnswer('correct')
+        
+        this.navigate();
+    }
+    onInCorrect = () => {
+        const {deckItem} = this.props
+        deckItem.score  = this.validateAnswer('incorrect')
+        this.navigate();
+    }
 
     render() {
         const frontAnimatedStyle = {
-            transform: [
-              { rotateY: this.frontInterpolate }
-            ]
-          }
-          const backAnimatedStyle = {
-            transform: [
-              { rotateY: this.backInterpolate }
-            ]
-          }
+        transform: [
+            { rotateY: this.frontInterpolate }
+        ]
+        }
+        const backAnimatedStyle = {
+        transform: [
+            { rotateY: this.backInterpolate }
+        ]
+        }
 
-        const {deckItem,navigation} = this.props
-        
+        const {deckItem,total,currentQuestionCount} = this.props
     return(
         <View style={styles.container}>
-
+            
+            <View>
+                <Text style ={{fontSize: 20,height: 54,color:'orange'}}>{(currentQuestionCount+1)} of {total}</Text>
+            </View>
             <View>
                 <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
-                    <Text style={{fontSize: 25,height: 74,}}>Question: {deckItem.questions[0].question}</Text>
+                    <Text style={{fontSize: 25,height: 74,}}>Question: {deckItem.questions[currentQuestionCount].question}</Text>
                 </Animated.View>
                 <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
-                    <Text style={{fontSize: 20,height: 54,}}>Answer: {deckItem.questions[0].answer}</Text>
+                    <Text style={{fontSize: 20,height: 54,}}>Answer: {deckItem.questions[currentQuestionCount].answer}</Text>
                 </Animated.View>
             </View>
              <TouchableOpacity onPress={this.onShowAnswer} >
-                <Text style ={{ color:'orange',fontSize: 16,}}>{this.state.onAnswerCard ? 'Show Answer' : 'Show Question' }</Text>
+                <Text style ={{ color:'orange',fontSize: 16,}}>{this.state.onAnswerCard ? 'Show Question' : 'Show Answer' }</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity style = {[styles.button,{backgroundColor:lightPurp}]}  >
+            <TouchableOpacity style = {[styles.button,{backgroundColor:lightPurp}]} onPress={this.onCorrect}  >
                 <Text style ={{ color:'white'}}>Correct</Text>
             </TouchableOpacity>
-            <TouchableOpacity style = {[styles.button,{backgroundColor:pink}]}  >
+            <TouchableOpacity style = {[styles.button,{backgroundColor:pink}]} onPress={this.onInCorrect}  >
                      <Text style ={{ color:'white'}}>InCorrect</Text>
             </TouchableOpacity>
         </View>
@@ -123,9 +171,11 @@ const styles = StyleSheet.create({
   });
 
 function mapStateToProps (state, { route }) {
-    const {deckItem} = route.params
+    const {deckItem,currentQuestionCount} = route.params
   return {
-    deckItem: state[deckItem.title]
+    deckItem: state[deckItem.title],
+    total : deckItem.questions.length,
+    currentQuestionCount : currentQuestionCount ?? 0
   }
 }
 

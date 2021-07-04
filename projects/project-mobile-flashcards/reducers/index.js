@@ -1,4 +1,4 @@
-import { RECEIVE_DECK_LIST, ADD_DECK,CLEAR_DECK,ADD_CARD_TO_DECK } from '../actions'
+import { RECEIVE_DECK_LIST, ADD_DECK,CLEAR_DECK,ADD_CARD_TO_DECK,CLEAR_QUIZ_SCORE,SAVE_QUIZ_SCORE } from '../actions'
 
 function entries (state = {}, action) {
   switch (action.type) {
@@ -15,7 +15,7 @@ function entries (state = {}, action) {
         [action.title]: {
           title: action.title,
           questions: [],
-          isAnswerCorrect: false
+          score : 0
         }
       }
     case ADD_CARD_TO_DECK:
@@ -26,6 +26,22 @@ function entries (state = {}, action) {
             questions: state[action.title].questions.concat(action.card)
           }
         }
+    case CLEAR_QUIZ_SCORE:
+          return {
+            ...state,
+            [action.title]: {
+              ...state[action.title],
+              score:0
+            }
+          }
+    case SAVE_QUIZ_SCORE:
+            return {
+              ...state,
+              [action.title]: {
+                ...state[action.title],
+                score: action.score
+              }
+            }
     default :
       return state
   }

@@ -10,7 +10,7 @@ export function addDeckApi(title){
   const newDeck = {
     title: title,
     questions: [],
-    isAnswerCorrect: false
+    score : 0
   }
   return AsyncStorage.mergeItem(DECKLIST_STORAGE_KEY, JSON.stringify({
     [title]: newDeck,
@@ -30,3 +30,22 @@ export function addCardToDeckApi (title, card) {
       AsyncStorage.setItem(DECKLIST_STORAGE_KEY, JSON.stringify(data))
     })
 }
+
+export function clearQuizScoreApi (title) { //where answer = {ans: 'Correct/Incorrect'}
+  return AsyncStorage.getItem(DECKLIST_STORAGE_KEY)
+    .then((results) => {
+      const data = JSON.parse(results);
+      data[title].score = 0
+      AsyncStorage.setItem(DECKLIST_STORAGE_KEY, JSON.stringify(data))
+    })
+}
+
+export function saveQuizScoreApi (title, score) { 
+  return AsyncStorage.getItem(DECKLIST_STORAGE_KEY)
+    .then((results) => {
+      const data = JSON.parse(results);
+      data[title].score = score
+      AsyncStorage.setItem(DECKLIST_STORAGE_KEY, JSON.stringify(data))
+    })
+}
+
