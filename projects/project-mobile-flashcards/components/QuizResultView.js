@@ -4,8 +4,14 @@ import { gray,blue,white,purple,orange,lightPurp,pink} from '../utils/colors'
 import { connect } from 'react-redux';
 import { clear_quiz_score } from '../actions'
 import {clearQuizScoreApi} from '../utils/api'
+import { setLocalNotification, clearLocalNotification } from '../utils/helpers';
 
 class QuizResultView extends React.Component {
+
+    componentDidMount() {
+        clearLocalNotification()
+        .then(setLocalNotification)
+      }
 
     onReStartQuiz = () => {
         const {deckItem,navigation,dispatch} = this.props

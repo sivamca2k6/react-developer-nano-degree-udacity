@@ -12,6 +12,7 @@ import { gray, blue,white,purple,orange,lightPurp,pink} from './utils/colors'
 import reducer from './reducers';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { setLocalNotification } from './utils/helpers'
 
 
 const Stack = createStackNavigator();
@@ -38,7 +39,11 @@ const Home = () =>{
 )};
 
 const Tab = createMaterialTopTabNavigator();
-export default function App() {
+export default class App extends React.Component {
+  componentDidMount() {
+      setLocalNotification()
+  }
+  render() {
   return (
     <Provider store={createStore(reducer)}>
       <NavigationContainer >
@@ -48,7 +53,7 @@ export default function App() {
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>
-  );
+  )};
 }
 
 // const styles = StyleSheet.create({
