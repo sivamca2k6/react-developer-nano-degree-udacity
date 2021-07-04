@@ -6,6 +6,7 @@ import NewDeck from './components/NewDeck';
 import DeckView from './components/DeckView';
 import QuizView from  './components/QuizView'
 import AddCardView from  './components/AddCardView'
+import QuizResultView from './components/QuizResultView'
 import { createStackNavigator } from '@react-navigation/stack';
 import { gray, blue,white,purple,orange,lightPurp,pink} from './utils/colors'
 import reducer from './reducers';
@@ -28,6 +29,9 @@ const Home = () =>{
                       headerStyle: {backgroundColor: orange,}, headerTintColor: white  })} />
         <Stack.Screen name = "AddCardView" component={AddCardView}        
                       options={({ route }) => ({ title: 'Add Card', 
+                      headerStyle: {backgroundColor: orange,}, headerTintColor: white  })} />
+        <Stack.Screen name = "QuizResultView" component={QuizResultView}        
+                      options={({ route }) => ({ title: 'Quiz Result', 
                       headerStyle: {backgroundColor: orange,}, headerTintColor: white  })} />
                                
       </Stack.Navigator>

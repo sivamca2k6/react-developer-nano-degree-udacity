@@ -75,7 +75,7 @@ class QuizView extends React.Component {
         const {navigation,deckItem,total,currentQuestionCount} = this.props
         if(total === currentQuestionCount+1)
         {
-
+            navigation.navigate('QuizResultView',{deckItem:deckItem})
         }
         else
         {
