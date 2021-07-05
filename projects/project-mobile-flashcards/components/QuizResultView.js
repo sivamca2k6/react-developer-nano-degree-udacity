@@ -5,19 +5,19 @@ import { connect } from 'react-redux';
 import { clear_quiz_score } from '../actions'
 import {clearQuizScoreApi} from '../utils/api'
 import { setLocalNotification, clearLocalNotification } from '../utils/helpers';
-import Constants from 'expo-constants';
+import * as Device from 'expo-device';
 
 class QuizResultView extends React.Component {
 
     componentDidMount() {
-
-      if (Constants.isDevice) {
-        console.log('Must use physical device for Push Notifications');
-      }
-      else
-      {
+      
+      if (Device.isDevice && Device.brand !== null) {
         clearLocalNotification()
         .then(setLocalNotification)
+      }
+      else
+      { // notifications not supported in the web
+        console.log('Must use physical device for Local Notifications');
       }
     }
 

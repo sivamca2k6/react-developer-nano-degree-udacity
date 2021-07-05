@@ -14,6 +14,7 @@
     "expo": "^41.0.0",
     "expo-app-loading": "^1.1.2",
     "expo-cli": "^4.7.2",
+    "expo-device": "^3.3.0",
     "expo-notifications": "~0.11.6",
     "expo-permissions": "~12.0.1",
     "expo-splash-screen": "~0.10.2",
