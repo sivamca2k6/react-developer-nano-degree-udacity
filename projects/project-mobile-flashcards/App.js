@@ -13,7 +13,7 @@ import reducer from './reducers';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { setLocalNotification } from './utils/helpers'
-import Constants from 'expo-constants';
+import * as Device from 'expo-device';
 
 
 const Stack = createStackNavigator();
@@ -43,13 +43,14 @@ const Tab = createMaterialTopTabNavigator();
 export default class App extends React.Component {
   componentDidMount() {
 
-    if (Constants.isDevice) {
-      console.log('Must use physical device for Push Notifications');
-    }
-    else
-    {
+    if (Device.isDevice && Device.brand !== null) { 
       setLocalNotification()
     }
+    else
+    { // notifications not supported in the web
+      console.log('Must use physical device for Local Notifications');
+    }
+
   }
   render() {
   return (
