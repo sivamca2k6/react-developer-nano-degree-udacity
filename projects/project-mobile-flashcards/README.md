@@ -33,7 +33,7 @@ dynamic experience
 ## INSTALL  & RUN
 
 * install all project dependencies with `npm install`
-* option 1 : start the project using `yarn android` if you have simulator
-* option 2 : start the project using `yarn web`
+* option 1 : start the project using `yarn android` - please note notification may not support when you run in non device.
+* option 2 : start the project using `yarn web` - please note notification not supported as per expo-notification documentation.
 
 

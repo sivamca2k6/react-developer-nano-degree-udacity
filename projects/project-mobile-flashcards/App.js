@@ -13,6 +13,7 @@ import reducer from './reducers';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { setLocalNotification } from './utils/helpers'
+import Constants from 'expo-constants';
 
 
 const Stack = createStackNavigator();
@@ -41,7 +42,14 @@ const Home = () =>{
 const Tab = createMaterialTopTabNavigator();
 export default class App extends React.Component {
   componentDidMount() {
+
+    if (Constants.isDevice) {
+      console.log('Must use physical device for Push Notifications');
+    }
+    else
+    {
       setLocalNotification()
+    }
   }
   render() {
   return (
